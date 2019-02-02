@@ -33,24 +33,25 @@ include ("connect.php");
 </form>
 
 <?php
-$linkLimit = 3;
-$length = 10;
-$symbols = 1000;
-$queryAll = "SELECT COUNT(1) FROM `book`";
+$length = 10; // limit comments on page
+$queryAll = "SELECT COUNT(1) FROM `book`"; // take all comments
+
 $result = mysqli_query($connection,$queryAll);
-$totalRows = mysqli_fetch_array($result)[0];
-$pages = $totalRows / $length;
+$totalRows = mysqli_fetch_array($result)[0]; // fint qantity comments
+
+$pages = $totalRows / $length; // find quantity all pages
 $pages = ceil($pages);
 
-if (isset($_GET['page'])) $page=($_GET['page']-1); else $page=0;
-if($page>$pages) $page = $pages;
-if ($_GET['page']<1) $page=0;
+if (isset($_GET['page'])) $page=($_GET['page']-1); else $page=0; // make page
+
+if($page>$pages) $page = $pages; // exception
+if ($page<1) $page=0;
 if(!is_numeric($page)) $page=0;
 if (!isset($list)) $list=0;
-$list = $page*$length;
+
+$list = $page*$length; // start print comments
 $result = mysqli_query($connection, "SELECT * FROM `book` LIMIT $list, $length");
 
-// нужно цикл брать до конца таблицы в БД, чтоб выводить все данные,а не только первые 25
 for($i=1;$i<=$length;$i++) {
     ?>
 
@@ -67,6 +68,28 @@ for($i=1;$i<=$length;$i++) {
     <?php
 }
 ?>
+
+<!--
+1) закинуть файл проверки сюда, либо как-то инклюднуть его
+2) сделать дохренища проверок на ввод инпутов, количества символов, введеную капчу
+3) добавить, в случае успешных проверок, в БД комментарий
+-->
+
+<form name="form" id="form" action="" method="post" style="text-align: center">
+    <br><br><input type="text" name="name" placeholder="Enter your NickName" maxlength="30" minlength="6"><br><br>
+    <input type="email" name="mail" placeholder="Enter your EMail"><br><br>
+    <textarea rows="6" cols="50" name="message" maxlength="200" placeholder="Enter comment(max 200 symbols)"></textarea>
+    <br><br><img alt="Captcha" id="img-captcha" src="Image.php" width="150" height="70">
+    <br>
+    <input autocomplete="off" type="text" name="text" placeholder="Enter captcha">
+    <input type="submit" name="submit" value="Continue">
+    <br>
+    <a href="" onclick="document.getElementById('img-captcha').src='Image.php'">Refresh captcha</a>
+    <br><br><input type="submit" value="Send" name="submit_mess">
+</form>
+
+
+<!--navigator-->
 <nav class="navigator">
     <ul>
         <li><a href="<?php echo $_SERVER['SCRIPT_NAME'].'?page='. 1?>">1</a></li>
@@ -76,7 +99,7 @@ for($i=1;$i<=$length;$i++) {
         <?php } ?>
         <li><b><a style="color: red;" href="<?php echo $_SERVER['SCRIPT_NAME'].'?page='. $page?>"><?= ++$page ?></a></b></li>
         <?php if($page < $pages){ ?>
-        <li><a href="<?php echo $_SERVER['SCRIPT_NAME'].'?page='. ($page+1)?>"><?= (1 + $page) ?></a></li>
+        <li><a href="<?php echo $_SERVER['SCRIPT_NAME'].'?page='. ($page+1)?>"><?= ++$page ?></a></li>
         <?php } ?>
         <li>...</li>
         <li><a href="<?php echo $_SERVER['SCRIPT_NAME'].'?page='.$pages?>"><?php echo $pages; ?></a></li>
