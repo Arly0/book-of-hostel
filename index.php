@@ -28,8 +28,24 @@ include ("connect.php");
     </style>
 </head>
 <body>
-<form>
+<!--
+1) закинуть файл проверки сюда, либо как-то инклюднуть его (complete)
+2) сделать дохренища проверок на ввод инпутов, количества символов, введеную капчу
+3) добавить, в случае успешных проверок, в БД комментарий
+p.s.: поинклюдить нужные файлы с проекта капчи
+-->
 
+<form name="form" id="form" action="check.php" method="post" style="text-align: center">
+    <br><br><input type="text" name="name" placeholder="Enter your NickName" maxlength="30" minlength="6"><br><br>
+    <input type="email" name="mail" placeholder="Enter your EMail"><br><br>
+    <input type="password" name="password" placeholder="Your password"><br><br>
+    <textarea rows="6" cols="50" name="message" maxlength="200" placeholder="Enter comment(max 200 symbols)"></textarea>
+    <br><br><img alt="Captcha" id="img-captcha" src="Image.php" width="150" height="70">
+    <br>
+    <input autocomplete="off" type="text" name="text" placeholder="Enter captcha">
+    <br>
+    <a href="" onclick="document.getElementById('img-captcha').src='Image.php'">Refresh captcha</a>
+    <br><br><input type="submit" value="Send" name="submit"><br><br><br>
 </form>
 
 <?php
@@ -68,27 +84,6 @@ for($i=1;$i<=$length;$i++) {
     <?php
 }
 ?>
-
-<!--
-1) закинуть файл проверки сюда, либо как-то инклюднуть его
-2) сделать дохренища проверок на ввод инпутов, количества символов, введеную капчу
-3) добавить, в случае успешных проверок, в БД комментарий
--->
-
-<form name="form" id="form" action="" method="post" style="text-align: center">
-    <br><br><input type="text" name="name" placeholder="Enter your NickName" maxlength="30" minlength="6"><br><br>
-    <input type="email" name="mail" placeholder="Enter your EMail"><br><br>
-    <textarea rows="6" cols="50" name="message" maxlength="200" placeholder="Enter comment(max 200 symbols)"></textarea>
-    <br><br><img alt="Captcha" id="img-captcha" src="Image.php" width="150" height="70">
-    <br>
-    <input autocomplete="off" type="text" name="text" placeholder="Enter captcha">
-    <input type="submit" name="submit" value="Continue">
-    <br>
-    <a href="" onclick="document.getElementById('img-captcha').src='Image.php'">Refresh captcha</a>
-    <br><br><input type="submit" value="Send" name="submit_mess">
-</form>
-
-
 <!--navigator-->
 <nav class="navigator">
     <ul>
