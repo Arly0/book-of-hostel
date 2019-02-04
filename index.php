@@ -67,8 +67,9 @@ if (!isset($list)) $list=0;
 
 $list = $page*$length; // start print comments
 $result = mysqli_query($connection, "SELECT * FROM `book` LIMIT $list, $length");
+$num_result = mysqli_num_rows($result);
 
-for($i=1;$i<=$length;$i++) {
+for($i=1;$i<=$num_result;$i++) {
     ?>
 
     <div class="container">

@@ -34,7 +34,7 @@ if(isset($_POST['submit'])) {
         $mail    = htmlentities(strip_tags($_POST['mail']));
         $nick    = htmlentities(strip_tags($_POST['name']));
         $pass    = htmlentities(strip_tags($_POST['password']));
-        sendMessage($connection, $message , $mail,$pass,$name, $ip, $browser);
+        sendMessage($connection, $message , $mail,$pass,$nick, $ip, $browser);
     }
     // not
     else {
@@ -79,7 +79,9 @@ function setBrowser(){
 
 function sendMessage($connection, $message , $mail,$pass,$name, $ip, $browser){
     $dateTime = date('Y-m-d');
-    $queryInsert = "INSERT INTO `book` (`message`, `email` ,`password`, `userName` `IP`, `browser`, `date`) VALUES ('$message', '$mail','$pass' , '$name', '$ip', '$browser', '$dateTime')";
+//    echo ($message . ';' . $mail . ';' . $pass . ';' . $name . ';' .$ip .';'. $browser.';'.$dateTime);
+//    die();
+    $queryInsert = "INSERT INTO `book` (`message`, `email` ,`password`, `userName` ,`IP`, `browser`, `date`) VALUES ('$message', '$mail','$pass' , '$name', '$ip', '$browser', '$dateTime')";
     $result = mysqli_query($connection,$queryInsert);
     if($result) {
         echo 'Your comment is added';
