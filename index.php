@@ -28,13 +28,6 @@ include ("connect.php");
     </style>
 </head>
 <body>
-<!--
-1) закинуть файл проверки сюда, либо как-то инклюднуть его (complete)
-2) сделать дохренища проверок на ввод инпутов, количества символов, введеную капчу
-3) добавить, в случае успешных проверок, в БД комментарий
-p.s.: поинклюдить нужные файлы с проекта капчи
--->
-
 <form name="form" id="form" action="check.php" method="post" style="text-align: center">
     <br><br><input type="text" name="name" placeholder="Enter your NickName" maxlength="30" minlength="6"><br><br>
     <input type="email" name="mail" placeholder="Enter your EMail"><br><br>
@@ -47,6 +40,12 @@ p.s.: поинклюдить нужные файлы с проекта капч�
     <a href="" onclick="document.getElementById('img-captcha').src='Image.php'">Refresh captcha</a>
     <br><br><input type="submit" value="Send" name="submit"><br><br><br>
 </form>
+<form action="updateDelete.php" method="post" name="newForm" id="newForm" style="text-align: center">
+    <input type="submit" name="gotoNewFunc" value="Update/Delete"><br><br>
+</form>
+<?php
+
+?>
 
 <?php
 $length = 10; // limit comments on page
